@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgeOfEmpire", "AgeOfEmpire\AgeOfEmpire.csproj", "{37D41B38-F275-41C2-B2CD-C2F8BD386764}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Default = Debug|Default
+		Release|Any CPU = Release|Any CPU
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Debug|Default.ActiveCfg = Debug|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Debug|Default.Build.0 = Debug|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Release|Default.ActiveCfg = Release|Any CPU
+		{37D41B38-F275-41C2-B2CD-C2F8BD386764}.Release|Default.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89E605AF-BA23-4173-B385-F751F692012E}
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Default = Debug|Default
+		Release|Any CPU = Release|Any CPU
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+EndGlobal

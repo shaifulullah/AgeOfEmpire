@@ -1,0 +1,312 @@
+﻿@{
+    ViewData["Title"] = "Battle";
+}
+<h1>@ViewData["Title"]</h1>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+<style>
+
+    .roundd {
+        -webkit-border-top-left-radius: 1px;
+        -webkit-border-top-right-radius: 2px;
+        -webkit-border-bottom-right-radius: 3px;
+        -webkit-border-bottom-left-radius: 4px;
+        -moz-border-radius-topleft: 1px;
+        -moz-border-radius-topright: 2px;
+        -moz-border-radius-bottomright: 3px;
+        -moz-border-radius-bottomleft: 4px;
+        border-top-left-radius: 1px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .row {
+        padding: 4em 3em;
+    }
+
+    .textbox {
+        height: 700px;
+    }
+
+    .progress {
+        margin-bottom: 10px;
+    }
+
+    .progress-bar {
+        width: 0;
+    }
+
+    .ready {
+        width: 69px;
+        height: 67px;
+        position: relative;
+        align-items: center;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<div class="row">
+    <div class="col-6">
+
+
+        <div class="w3-container">
+            <div class="w3-border">
+                <span id="myteamhealth"></span>
+                <div class="w3-green" style="height: 24px; width: 100%"></div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            @{
+
+                var infantryteam = ViewBag.Army;
+
+
+
+                foreach (var item in infantryteam)
+
+                {
+                    if (item.armyid == ViewBag.myid)
+                    { 
+                        <div class="col-3">
+                            <img src="@item.imgsrc" 
+                                 
+                                  />
+                        <div id="@item.name">
+                            health=@item.health
+                            hit=@item.hitpoints
+                        </div>
+                    </div>
+                    }
+                }
+          
+
+            }
+          
+            
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="w3-container">
+            <div class="w3-border">
+                <span id="pchealth"></span>
+                <div class="w3-green" style="height:24px;width:100%;direction:rtl">
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row">
+            @{
+
+
+
+
+                foreach (var item in infantryteam)
+
+                {
+                    if (item.armyid != ViewBag.myid)
+                    {
+                    <div class="col-3">
+                        <img src="@item.imgsrc" />
+                        <div id="@item.name">
+                            health=@item.health
+                            hit=@item.hitpoints
+                        </div>
+                    </div>
+                        }
+                    }
+                
+
+
+                }
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="ready border rounded-circle" id="readycomp">
+    Ready
+
+</div>
+
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript">
+    var myturn=true
+    var totalhealthMyTeam = 0
+    var myteam = 0
+    myarmycount = 0
+    pcarmycount = 0
+    let firsttime = true
+    let Battlestate=true
+    showalert=false
+    var totalhealthPc=0
+    var armysoliders=[]
+    $(document).ready(function () {
+        setTimeout(() => { $('#readycomp').html('Go'); }, 1000)
+        setTimeout(() => { $('#readycomp').css("display", "none"); }, 2000)
+         armysoliders = @Html.Raw(Json.Serialize(ViewBag.Army));
+     myteam = @Html.Raw(ViewBag.myid)
+
+         
+
+        armysoliders.forEach(x => {
+            if (x.armyid == myteam) {
+                totalhealthMyTeam += x.health
+                myarmycount+=1
+            }
+            else {
+                totalhealthPc += x.health
+                pcarmycount+=1
+            }
+        })
+        setInterval(Battle,1000)
+
+    })
+
+    function Battle() {
+        if (!Battlestate) return
+        let valueme = 1
+        let valuepc = 1
+
+        $('#myteamhealth').html(totalhealthMyTeam);
+        $('#pchealth').html(totalhealthPc);
+
+        debugger;
+        if (firsttime == false ) {
+
+            
+
+            if (totalhealthPc <= 0 || pcarmycount == 0) {
+                alert("You Won")
+                Battlestate = false
+                return
+            }
+            
+            else if (totalhealthMyTeam <= 0 || myarmycount == 0) {
+                alert("You Lost")
+                Battlestate = false
+                return
+            }
+
+        }
+        
+    
+        if (totalhealthMyTeam > 0 && totalhealthPc > 0) {
+            firsttime = false
+           
+            debugger;
+            if (myturn) {
+                valueme = Math.round(Math.random() * armysoliders.length);
+                valuepc = Math.round(Math.random() * armysoliders.length);
+                if (valueme == 0) valueme = 1
+                if (valuepc == 0) valuepc = 1
+                while (armysoliders[valueme - 1].armyid != myteam) {
+
+                    valueme = Math.round(Math.random() * armysoliders.length);
+                    if (valueme == 0) valueme = 1
+                   
+                }
+                $('#'+armysoliders[valueme - 1].name).css("color", "green")
+                sleep(500);
+
+                while (armysoliders[valuepc - 1].armyid == myteam) {
+
+                    valuepc = Math.round(Math.random() * armysoliders.length);
+                    if (valuepc == 0) valuepc = 1
+                }
+                $('#'+armysoliders[valuepc - 1].name).css("color", "red")
+                armysoliders[valuepc - 1].health = armysoliders[valuepc - 1].health - armysoliders[valueme - 1].hitpoints
+                //setTimeout(() => {
+                //    $('#' + armysoliders[valuepc - 1].name).css("color", "black")
+                //    $('#' + armysoliders[valueme - 1].name).css("color", "black")
+                //}
+                //,2000)
+                
+                if (armysoliders[valuepc - 1].health <= 0) {
+                    armysoliders.splice(valuepc - 1, 1)
+                    $('#' + armysoliders[valuepc - 1].name).css("display", "none")
+                    pcarmycount-=1
+
+                }
+                myturn = false
+            }
+            else {
+                valueme = Math.round(Math.random() * armysoliders.length);
+                valuepc = Math.round(Math.random() * armysoliders.length);
+                if (valueme == 0) valueme = 1
+                if (valuepc == 0) valuepc = 1
+                while (armysoliders[valuepc - 1].armyid == myteam) {
+
+                    valuepc = Math.round(Math.random() * armysoliders.length);
+                    if (valuepc == 0) valuepc = 1
+
+
+                }
+                $('#'+armysoliders[valuepc - 1].name).css("color", "green")
+                while (armysoliders[valueme - 1].armyid != myteam) {
+
+                    valueme = Math.round(Math.random() * armysoliders.length);
+                    if (valueme == 0) valueme=1
+                }
+                $('#'+armysoliders[valueme - 1].name).css("color", "red")
+                armysoliders[valueme - 1].health = armysoliders[valueme - 1].health - armysoliders[valuepc - 1].hitpoints
+                
+                
+                //setTimeout(() => {
+                //    $('#' + armysoliders[valuepc - 1].name).css("color", "black")
+                //    $('#' + armysoliders[valueme - 1].name).css("color", "black")
+                //}
+                //    , 500)
+
+                myturn = true
+
+
+                if (armysoliders[valueme - 1].health <= 0)
+                {
+                    armysoliders.splice(valueme - 1, 1)
+                    $('#' + armysoliders[valueme - 1].name).css("display", "none")
+                    myarmycount -= 1
+                    
+                }
+                
+
+            }
+
+        }
+        totalhealthPc = 0
+        totalhealthMyTeam = 0
+        armysoliders.forEach(x => {
+            if (x.armyid == myteam) { totalhealthMyTeam += x.health }
+            else { totalhealthPc += x.health }
+        })
+        $('#myteamhealth').html(totalhealthMyTeam);
+        $('#pchealth').html(totalhealthPc);
+        
+        
+
+    }
+
+
+
+    function sleep(x) {
+        console.log(x)
+        // defer the execution of anonymous function for
+        // 3 seconds and go to next line of code.
+        setTimeout(function () {
+
+
+        }, 500)
+    };
+
+
+</script>

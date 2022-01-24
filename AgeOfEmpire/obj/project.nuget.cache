@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cqadNpIroP+vm6h0AbXAJLZVOZLVMguT/0lgjOrnYkLyJNyQtlmZSrluHnDikxlh1wrHAfJJm5hEnxoKXFcOCQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Shaiful\\Source\\Repos\\AgeOfEmpire\\AgeOfEmpire\\AgeOfEmpire.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Shaiful\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
